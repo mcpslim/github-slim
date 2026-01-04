@@ -1,0 +1,37 @@
+{
+  "name": "github-slim",
+  "version": "2025.4.8",
+  "description": "Slimmed github MCP - 56% token reduction for AI models",
+  "bin": {
+    "github-slim": "./index.js"
+  },
+  "keywords": [
+    "mcp",
+    "claude",
+    "gemini",
+    "chatgpt",
+    "github",
+    "slim",
+    "token-reduction"
+  ],
+  "author": "",
+  "license": "MIT",
+  "files": [
+    "bin/",
+    "recipes/",
+    "index.js",
+    "README.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/palan-k/mcpslim.git",
+    "directory": "packages/github-slim"
+  },
+  "mcpslim": {
+    "originalPackage": "@modelcontextprotocol/server-github",
+    "originalVersion": "2025.4.8",
+    "originalTools": 26,
+    "slimTools": 7,
+    "tokenReduction": "56%"
+  }
+}

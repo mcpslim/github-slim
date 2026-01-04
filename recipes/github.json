@@ -1,0 +1,178 @@
+{
+  "mcp_name": "github",
+  "auto_generated": true,
+  "algorithm_version": "v2.1",
+  "rules": {
+    "default_minifier": "first_sentence",
+    "remove_params_description": true
+  },
+  "groups": [
+    {
+      "name": "create",
+      "description": "create operations",
+      "mapping": {
+        "or_update_file": "create_or_update_file",
+        "repository": "create_repository",
+        "issue": "create_issue",
+        "pull_request": "create_pull_request",
+        "branch": "create_branch",
+        "pull_request_review": "create_pull_request_review"
+      },
+      "common_schema": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": [
+              "or_update_file",
+              "repository",
+              "issue",
+              "pull_request",
+              "branch",
+              "pull_request_review"
+            ]
+          }
+        },
+        "required": [
+          "action"
+        ]
+      }
+    },
+    {
+      "name": "search",
+      "description": "search operations",
+      "mapping": {
+        "repositories": "search_repositories",
+        "code": "search_code",
+        "issues": "search_issues",
+        "users": "search_users"
+      },
+      "common_schema": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": [
+              "repositories",
+              "code",
+              "issues",
+              "users"
+            ]
+          }
+        },
+        "required": [
+          "action"
+        ]
+      }
+    },
+    {
+      "name": "get",
+      "description": "get operations",
+      "mapping": {
+        "file_contents": "get_file_contents",
+        "issue": "get_issue",
+        "pull_request": "get_pull_request",
+        "pull_request_files": "get_pull_request_files",
+        "pull_request_status": "get_pull_request_status",
+        "pull_request_comments": "get_pull_request_comments",
+        "pull_request_reviews": "get_pull_request_reviews"
+      },
+      "common_schema": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": [
+              "file_contents",
+              "issue",
+              "pull_request",
+              "pull_request_files",
+              "pull_request_status",
+              "pull_request_comments",
+              "pull_request_reviews"
+            ]
+          }
+        },
+        "required": [
+          "action"
+        ]
+      }
+    },
+    {
+      "name": "list",
+      "description": "list operations",
+      "mapping": {
+        "commits": "list_commits",
+        "issues": "list_issues",
+        "pull_requests": "list_pull_requests"
+      },
+      "common_schema": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": [
+              "commits",
+              "issues",
+              "pull_requests"
+            ]
+          }
+        },
+        "required": [
+          "action"
+        ]
+      }
+    },
+    {
+      "name": "update",
+      "description": "update operations",
+      "mapping": {
+        "issue": "update_issue",
+        "pull_request_branch": "update_pull_request_branch"
+      },
+      "common_schema": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": [
+              "issue",
+              "pull_request_branch"
+            ]
+          }
+        },
+        "required": [
+          "action"
+        ]
+      }
+    },
+    {
+      "name": "mutation",
+      "description": "mutation operations",
+      "mapping": {
+        "files": "push_files",
+        "issue_comment": "add_issue_comment",
+        "pull_request": "merge_pull_request"
+      },
+      "common_schema": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": [
+              "files",
+              "issue_comment",
+              "pull_request"
+            ]
+          }
+        },
+        "required": [
+          "action"
+        ]
+      }
+    }
+  ],
+  "passthrough": [
+    "fork_repository"
+  ]
+}
