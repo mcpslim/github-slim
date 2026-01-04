@@ -1,21 +1,39 @@
 # github-slim
 
-> 🚀 Github MCP with **90.4% token reduction** for AI models
+> **Github MCP server optimized for AI assistants** — Reduce context window tokens by 76.3% while keeping full functionality. Compatible with Claude, ChatGPT, Gemini, Cursor, and all MCP clients.
 
 [![npm version](https://img.shields.io/npm/v/github-slim.svg)](https://www.npmjs.com/package/github-slim)
-[![Test Status](https://img.shields.io/badge/tests-passing-brightgreen)](https://github.com/palan-k/mcpslim)
+[![Test Status](https://img.shields.io/badge/tests-passing-brightgreen)](https://github.com/mcpslim/mcpslim)
+[![MCP Compatible](https://img.shields.io/badge/MCP-compatible-blue)](https://modelcontextprotocol.io)
+
+## What is github-slim?
+
+A **token-optimized** version of the Github [Model Context Protocol (MCP)](https://modelcontextprotocol.io) server.
+
+### The Problem
+
+MCP tool schemas consume significant **context window tokens**. When AI assistants like Claude or ChatGPT load MCP tools, each tool definition takes up valuable context space.
+
+The original `@modelcontextprotocol/server-github` loads **26 tools** consuming approximately **~18,216 tokens** — that's space you could use for actual conversation.
+
+### The Solution
+
+`github-slim` intelligently **groups 26 tools into 7 semantic operations**, reducing token usage by **76.3%** — with **zero functionality loss**.
+
+Your AI assistant sees fewer, smarter tools. Every original capability remains available.
 
 ## Performance
 
-| Metric | Original | Slim | Improvement |
-|--------|----------|------|-------------|
+| Metric | Original | Slim | Reduction |
+|--------|----------|------|-----------|
 | Tools | 26 | 7 | **-56%** |
-| Tokens | 3,396 | 327 | **90.4%** |
+| Schema Tokens | 3,396 | 327 | **90.4%** |
+| Claude Code (est.) | ~18,216 | ~4,317 | **~76.3%** |
 
-> **Version Info**
+> **Benchmark Info**
 > - Original: `@modelcontextprotocol/server-github@2025.4.8`
-> - Slim version synced with original
-> - Tokens measured with [tiktoken](https://github.com/openai/tiktoken) v1.0.21 (cl100k_base)
+> - Schema tokens measured with [tiktoken](https://github.com/openai/tiktoken) (cl100k_base)
+> - Claude Code estimate includes ~570 tokens/tool overhead
 
 ## Installation
 
@@ -23,9 +41,13 @@
 npx github-slim
 ```
 
+No additional setup required. The slim server wraps the original MCP transparently.
+
 ## Usage
 
 ### Claude Desktop
+
+Add to your `claude_desktop_config.json`:
 
 ```json
 {
@@ -38,7 +60,7 @@ npx github-slim
 }
 ```
 
-### Claude Code CLI
+### Claude Code (CLI)
 
 ```bash
 claude mcp add github -- npx -y github-slim
@@ -50,7 +72,7 @@ claude mcp add github -- npx -y github-slim
 gemini mcp add github -- npx -y github-slim
 ```
 
-### VS Code (Copilot, Cline, etc.)
+### VS Code (Copilot, Cline, Roo Code)
 
 ```bash
 code --add-mcp '{"name":"github","command":"npx","args":["-y","github-slim"]}'
@@ -59,6 +81,7 @@ code --add-mcp '{"name":"github","command":"npx","args":["-y","github-slim"]}'
 ### Cursor
 
 Add to `.cursor/mcp.json`:
+
 ```json
 {
   "mcpServers": {
@@ -72,14 +95,14 @@ Add to `.cursor/mcp.json`:
 
 ## How It Works
 
-MCPSlim acts as a **transparent bridge** between AI models and the original MCP server.
+MCPSlim acts as a **transparent bridge** between AI models and the original MCP server:
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
 │  Without MCPSlim                                                │
 │                                                                 │
 │  [AI Model] ──── reads 26 tool schemas ────→ [Original MCP]    │
-│             (3,396 tokens loaded into context)                    │
+│             (~18,216 tokens loaded into context)                 │
 ├─────────────────────────────────────────────────────────────────┤
 │  With MCPSlim                                                   │
 │                                                                 │
@@ -87,36 +110,52 @@ MCPSlim acts as a **transparent bridge** between AI models and the original MCP 
 │       │                │                      │                 │
 │   Sees 7 grouped      Translates to        Executes actual   │
 │   tools only         original call       tool & returns    │
-│   (327 tokens)                                               │
+│   (~4,317 tokens)                                              │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
-### Translation Flow
+### How Translation Works
 
-1. **AI reads slim schema** - Only 7 grouped tools instead of 26 (saves tokens)
-2. **AI calls grouped tool** - e.g., `page({ action: "navigate", url: "..." })`
-3. **MCPSlim translates** - Converts to: `navigate_page({ url: "..." })`
-4. **Original MCP executes** - Real server processes the request
-5. **Response returned** - Result passes back unchanged
+1. **AI reads slim schema** — Only 7 grouped tools instead of 26
+2. **AI calls grouped tool** — e.g., `interaction({ action: "click", ... })`
+3. **MCPSlim translates** — Converts to original: `browser_click({ ... })`
+4. **Original MCP executes** — Real server processes the request
+5. **Response returned** — Result passes back unchanged
 
-**Zero functionality loss. 90.4% token savings.**
+**Zero functionality loss. 76.3% token savings.**
 
-### Tool Groups
+## Available Tool Groups
 
-- `create`: 4 actions
-- `issue`: 2 actions
-- `list`: 4 actions
-- `repository`: 2 actions
-- `search`: 2 actions
+| Group | Actions |
+|-------|---------|
+| `create` | 4 |
+| `issue` | 2 |
+| `list` | 4 |
+| `repository` | 2 |
+| `search` | 2 |
 
-- Plus 2 passthrough tools (ungrouped, but description slimmed)
+Plus **2 passthrough tools** — tools that don't group well are kept as-is with optimized descriptions.
 
 ## Compatibility
 
-- ✅ All original `@modelcontextprotocol/server-github` functionality preserved
-- ✅ Works with Claude, Gemini, ChatGPT, Qwen, and any MCP-compatible AI
-- ✅ Same API - just use grouped action names
-- ✅ Schema compatibility verified via automated tests
+- ✅ **Full functionality** — All original `@modelcontextprotocol/server-github` features preserved
+- ✅ **All AI assistants** — Works with Claude, ChatGPT, Gemini, Copilot, and any MCP client
+- ✅ **Drop-in replacement** — Same capabilities, just use grouped action names
+- ✅ **Tested** — Schema compatibility verified via automated tests
+
+## FAQ
+
+### Does this reduce functionality?
+
+**No.** Every original tool is accessible. Tools are grouped semantically (e.g., `click`, `hover`, `drag` → `interaction`), but all actions remain available via the `action` parameter.
+
+### Why do AI assistants need token optimization?
+
+AI models have limited context windows. MCP tool schemas consume tokens that could be used for conversation, code, or documents. Reducing tool schema size means more room for actual work.
+
+### Is this officially supported?
+
+MCPSlim is a community project. It wraps official MCP servers transparently — the original server does all the real work.
 
 ## License
 
@@ -124,4 +163,8 @@ MIT
 
 ---
 
-Powered by [MCPSlim](https://github.com/palan-k/mcpslim) - MCP Token Compression Bridge
+<p align="center">
+  Powered by <a href="https://github.com/mcpslim/mcpslim"><b>MCPSlim</b></a> — MCP Token Optimizer
+  <br>
+  <sub>Reduce AI context usage. Keep full functionality.</sub>
+</p>
