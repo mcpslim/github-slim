@@ -123,7 +123,20 @@
           }
         },
         "required": [
-          "action"
+          "action",
+          "owner",
+          "repo",
+          "path",
+          "content",
+          "message",
+          "branch",
+          "name",
+          "title",
+          "head",
+          "base",
+          "pull_number",
+          "body",
+          "event"
         ]
       }
     },
@@ -188,7 +201,9 @@
           }
         },
         "required": [
-          "action"
+          "action",
+          "query",
+          "q"
         ]
       }
     },
@@ -239,7 +254,12 @@
           }
         },
         "required": [
-          "action"
+          "action",
+          "owner",
+          "repo",
+          "path",
+          "issue_number",
+          "pull_number"
         ]
       }
     },
@@ -320,7 +340,9 @@
           }
         },
         "required": [
-          "action"
+          "action",
+          "owner",
+          "repo"
         ]
       }
     },
@@ -386,7 +408,11 @@
           }
         },
         "required": [
-          "action"
+          "action",
+          "owner",
+          "repo",
+          "issue_number",
+          "pull_number"
         ]
       }
     },
@@ -460,7 +486,15 @@
           }
         },
         "required": [
-          "action"
+          "action",
+          "owner",
+          "repo",
+          "branch",
+          "files",
+          "message",
+          "issue_number",
+          "body",
+          "pull_number"
         ]
       }
     }
