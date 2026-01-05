@@ -9,7 +9,7 @@
   "groups": [
     {
       "name": "create",
-      "description": "create operations",
+      "description": "Manage GitHub repositories by building branches, requests, issues, and updating files directly.",
       "mapping": {
         "or_update_file": "create_or_update_file",
         "repository": "create_repository",
@@ -142,7 +142,7 @@
     },
     {
       "name": "search",
-      "description": "search operations",
+      "description": "Explore GitHub to locate repositories, code, discussions, and developer profiles efficiently.",
       "mapping": {
         "repositories": "search_repositories",
         "code": "search_code",
@@ -209,7 +209,7 @@
     },
     {
       "name": "get",
-      "description": "get operations",
+      "description": "Retrieve GitHub repository files, issues, pull requests, changes, checks, comments, and reviews efficiently.",
       "mapping": {
         "file_contents": "get_file_contents",
         "issue": "get_issue",
@@ -265,7 +265,7 @@
     },
     {
       "name": "list",
-      "description": "list operations",
+      "description": "Retrieve and filter GitHub repository information, including commits, issues, and pull requests.",
       "mapping": {
         "commits": "list_commits",
         "issues": "list_issues",
@@ -348,7 +348,7 @@
     },
     {
       "name": "update",
-      "description": "update operations",
+      "description": "Modify GitHub issues and synchronize pull request branches with current codebase updates.",
       "mapping": {
         "issue": "update_issue",
         "pull_request_branch": "update_pull_request_branch"
@@ -418,7 +418,7 @@
     },
     {
       "name": "mutation",
-      "description": "mutation operations",
+      "description": "Manage GitHub repositories by committing files, commenting on issues, and merging pull requests.",
       "mapping": {
         "files": "push_files",
         "issue_comment": "add_issue_comment",
@@ -501,5 +501,7 @@
   ],
   "passthrough": [
     "fork_repository"
-  ]
+  ],
+  "ai_enhanced": true,
+  "enhanced_at": "2026-01-05T07:28:21.511Z"
 }
