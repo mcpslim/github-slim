@@ -1,7 +1,7 @@
 {
   "name": "github-slim",
-  "version": "2025.4.8-slim.1",
-  "description": "Slimmed github MCP - 56% token reduction for AI models",
+  "version": "2025.4.8-slim.1.1",
+  "description": "github MCP (56% less tokens). Quick setup: npx github-slim --setup",
   "bin": {
     "github-slim": "./index.js"
   },
