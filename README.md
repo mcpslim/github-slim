@@ -57,8 +57,11 @@ Done! Restart your app to use github.
 ### CLI Tools (already have CLI?)
 
 ```bash
-# Claude Code
-claude mcp add github --env GITHUB_PERSONAL_ACCESS_TOKEN=<YOUR_TOKEN> -- npx -y github-slim
+# Claude Code (creates .mcp.json in project root)
+claude mcp add github -s project --env GITHUB_PERSONAL_ACCESS_TOKEN=<YOUR_TOKEN> -- npx -y github-slim
+
+# Windows: use cmd /c wrapper
+claude mcp add github -s project --env GITHUB_PERSONAL_ACCESS_TOKEN=<YOUR_TOKEN> -- cmd /c npx -y github-slim
 
 # VS Code (Copilot, Cline, Roo Code)
 code --add-mcp '{"name":"github","command":"npx","args":["-y","github-slim"],"env":{"GITHUB_PERSONAL_ACCESS_TOKEN":"<YOUR_TOKEN>"}}'
