@@ -58,13 +58,13 @@ Done! Restart your app to use github.
 
 ```bash
 # Claude Code (creates .mcp.json in project root)
-claude mcp add github -s project --env GITHUB_PERSONAL_ACCESS_TOKEN=<YOUR_TOKEN> -- npx -y github-slim
+claude mcp add github -s project --env GITHUB_PERSONAL_ACCESS_TOKEN=<YOUR_TOKEN> -- npx -y github-slim@latest
 
 # Windows: use cmd /c wrapper
-claude mcp add github -s project --env GITHUB_PERSONAL_ACCESS_TOKEN=<YOUR_TOKEN> -- cmd /c npx -y github-slim
+claude mcp add github -s project --env GITHUB_PERSONAL_ACCESS_TOKEN=<YOUR_TOKEN> -- cmd /c npx -y github-slim@latest
 
 # VS Code (Copilot, Cline, Roo Code)
-code --add-mcp '{"name":"github","command":"npx","args":["-y","github-slim"],"env":{"GITHUB_PERSONAL_ACCESS_TOKEN":"<YOUR_TOKEN>"}}'
+code --add-mcp '{"name":"github","command":"npx","args":["-y","github-slim@latest"],"env":{"GITHUB_PERSONAL_ACCESS_TOKEN":"<YOUR_TOKEN>"}}'
 ```
 
 ## Configuration
@@ -94,7 +94,7 @@ Add to your `claude_desktop_config.json`:
   "mcpServers": {
     "github": {
       "command": "npx",
-      "args": ["-y", "github-slim"],
+      "args": ["-y", "github-slim@latest"],
       "env": {
         "GITHUB_PERSONAL_ACCESS_TOKEN": "<YOUR_TOKEN>"
       }
@@ -112,7 +112,7 @@ Add to `.cursor/mcp.json` (global) or `<project>/.cursor/mcp.json` (project):
   "mcpServers": {
     "github": {
       "command": "npx",
-      "args": ["-y", "github-slim"],
+      "args": ["-y", "github-slim@latest"],
       "env": {
         "GITHUB_PERSONAL_ACCESS_TOKEN": "<YOUR_TOKEN>"
       }
