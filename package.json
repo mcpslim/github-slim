@@ -1,6 +1,6 @@
 {
   "name": "github-slim",
-  "version": "2025.4.8-slim.1.10",
+  "version": "2025.4.8-slim.1.11",
   "description": "github MCP (56% less tokens). Quick setup: npx github-slim --setup",
   "bin": {
     "github-slim": "./index.js"
